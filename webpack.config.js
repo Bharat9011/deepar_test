@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -9,22 +10,19 @@ module.exports = {
   },
   target: "web",
   module: {
-    rules: [
-      {
-        test: /\.(wasm)|(bin)|(obj)$/i,
-        include: [
-          path.resolve(__dirname, 'node_modules/deepar/'),
-        ],
-        type: 'asset/resource',
-      },
-      {
-        include: [
-          path.resolve(__dirname, 'effects/'),
-        ],
-        type: 'asset/resource',
-      },
-    ],
+    // The old rules were not effective for how assets are loaded.
+    // CopyPlugin is the correct approach for this project.
+    rules: [],
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: "public", to: "." },
+        { from: "effects", to: "effects" },
+        { from: "node_modules/deepar", to: "deepar-resources" },
+      ],
+    }),
+  ],
   resolve: {
     alias: {
       '@effects': path.resolve(__dirname, 'effects/'),
@@ -40,11 +38,15 @@ module.exports = {
         directory: path.join(__dirname, "public"),
       },
       {
+        directory: path.join(__dirname, "effects"),
+        publicPath: "/effects",
+      },
+      {
         directory: path.join(__dirname, "node_modules/deepar"),
         publicPath: "/deepar-resources",
       },
     ],
     compress: true,
-    port: 9000,
+    port: 8888, // Aligned port with package.json script and README
   },
 };
