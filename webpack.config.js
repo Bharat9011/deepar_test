@@ -18,14 +18,13 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "public", to: "." },
-        { from: "effects", to: "effects" },
         { from: "node_modules/deepar", to: "deepar-resources" },
       ],
     }),
   ],
   resolve: {
     alias: {
-      '@effects': path.resolve(__dirname, 'effects/'),
+      '@effects': path.resolve(__dirname, 'public/effects/'),
     },
   },
   performance: {
@@ -36,10 +35,6 @@ module.exports = {
     static: [
       {
         directory: path.join(__dirname, "public"),
-      },
-      {
-        directory: path.join(__dirname, "effects"),
-        publicPath: "/effects",
       },
       {
         directory: path.join(__dirname, "node_modules/deepar"),
