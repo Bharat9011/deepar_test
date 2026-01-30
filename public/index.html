@@ -14,11 +14,14 @@
 
   <!-- ✅ CSS (root-relative path) -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ Import Map: Allows "import ... from 'deepar'" to work in the browser -->
+  
 </head>
 
 <body>
   <!-- loading screen -->
-  <div class="fixed-fullscreen" id="loading-screen">
+  <div class="fixed-fullscreen" id="loading-screen" style="display: none">
     <div style="
           display: flex;
           flex-direction: column;
@@ -55,7 +58,7 @@
   </div>
 
   <!-- AR screen -->
-  <div class="fixed-fullscreen screen" id="ar-screen" style="display: none">
+  <div class="fixed-fullscreen screen" id="ar-screen">
     <!-- ✅ REQUIRED FOR DEEPAR -->
     <canvas class="deepar" id="deepar-canvas"></canvas>
 
